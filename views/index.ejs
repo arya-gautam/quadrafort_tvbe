@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <div class="formHolder" style="width:100%;padding: 10px; max-width:768px;margin: 0 auto;">
+      <form action="/addData" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label class="form-label">Select File Type</label>
+          <select class="form-select" name="filetype" required>
+            <option selected="selected" disabled="disabled" value="">Select File Type</option>
+            <option value="Image">Image</option>
+            <option value="Video">Video</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Upload File</label>
+          <input name="image" type="file"  class="form-control" required/>
+          <!-- <div class="fileUploadHolder" style="display:flex;align-items: center;justify-content: space-between;position: relative;border:1px solid #ced4da;padding: 10px;border-radius: .25rem;">
+            <input type="file" style="position:absolute;opacity:0;width:100%">
+            <div class="fileHolder" style="width:100px;height:100px;display: flex;align-items: center;justify-content: center;overflow: hidden;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAMFBMVEX09PTMzMzJycnPz8/d3d3V1dXi4uLo6Ojw8PDx8fH39/ft7e3Y2NjQ0NDp6enb29uHE20LAAACaklEQVR4nO3b6W6CQBhGYUTWD9T7v9uylLIN6jCk8Cbn+deEGo6DMOAYRQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIJyFiuzshLesStJAdVZdufEV38LFydkZm6w+IrBJrK86itkxgU1ifnaKmz363QvUvsbjmoNYdjuXPPMQz6R7lfLsGKeq3bd76LvfHwnFIXt0tOKYwjuF51kVtjMUbzqFVmR1/cpK30idwv7qH98yz0SVwvI+XP19JygqhY9xehMnXokihfl0/hZ77a5I4WM2zXz5DKJI4XwKvjHLNGeGRmE1L7w7N7fKeRLSKCy+KGwCnedZjcJofruXuo7SbpwdiRqFlk4D42y9rf0eyOtEjcL5BzFeb2rV5oRApNAmj6QcjyRs8g4sE0UKJ4nxemJq8yGeJ6oURpY/uic26frppy0uJvNEmcI2JM/yovlz8cxlGbhIFCrcsA6cX0/kC52Bt3hMlC90Bk5HUbzQPYL9KA6b6BXmk8/YZuCYqFdYj/f47wL/EtUKrR6/LXsfOCSKFbaBQ+KnwGa79sqpVWjp7x1Ec6B+DhQsHAK7xM+BeoVjYLPzr499eoXTwO+IFfoHihXuWbWgVVh792kV7lt3IlRoe0ZQqvCLax+FZ8c4UUghheebFu6jU1gk++gU7l3t3f2rRmGAyxcGr329cuEh60stunBh2Z3y6yxM/wX52S1u/bf3Ryzzdq9tuIDnYWv1q7NTNlhy0O8t/Nb6/SfLbnHoYbpjSep/sjLfOZ0ZXfTXJKPgH69deAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABDyA0uAKIxQw0bjAAAAAElFTkSuQmCC"></div>
+            <div class="uploadText"><svg height="30px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="30px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><rect height="96" width="16" x="248" y="352"/><path d="M399.3,183.6c0-1.2,0.2-2.4,0.2-3.6c0-64.3-52.8-116.4-116.8-116.4c-46.1,0-85.8,27.1-104.4,66.3   c-8.1-4.1-17.1-6.4-26.8-6.4c-29.6,0-54.1,23.6-58.9,52C57.4,187.6,32,222.2,32,261.8c0,49.7,40.1,90.2,89.6,90.2H182h31h35V205.8   l-54.7,54.5l-11.6-11.6l74.5-74.3l74.5,74.3l-11.8,11.6L264,205.8V352h134c45,0,82-37.3,82-82.8C480,223.7,444.5,183.7,399.3,183.6   z"/></g></svg> Upload File</div>
+          </div> -->
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-12">
+          <div class="form-group text-center">
+          <input type="submit" name="submit" value="Add" class="btn btn-primary m-b-0"  />
+          </div>
+          </div>
+          </div>
+
+        <!-- <input type="file" style="width:100%"> -->
+        <div class="tabel-responsive uploadFileData mt-3">
+          <table class="table">
+            <thead class="table-secondary">
+              <tr>
+                <th scope="col">File Type</th>
+                <th scope="col">File</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+           
+            <tbody>
+              <% data.forEach(function(addeddata,index) { %>
+              <tr>
+                <td><%=addeddata.filetype%></td>
+                <td>
+
+                  <% if (addeddata.filetype == "Video") { %>
+                    <video width="100" height="100" autoplay muted>
+                      <source src="uploads/<%=addeddata.fileURL%>" type="video/mp4">
+                    </video>
+                  <% } else { %>
+                    <div class="fileHolder" style="width:100px;height:100px;display: flex;align-items: center;justify-content: center;overflow: hidden;"><img src="uploads/<%=addeddata.fileURL%>" style="width: 100%;"></div>
+                    <% } %>
+                </td>
+                <% if (addeddata.filetype == "Video") { %>
+                <td><button type="button" class="btn btn-primary"><svg class="feather feather-edit" fill="none" height="15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="15" xmlns="http://www.w3.org/2000/svg"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit</button></td>
+                <% } %>
+              </tr>
+              <% }) %>
+            </tbody>
+           
+          </table>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
