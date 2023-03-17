@@ -8,43 +8,32 @@ const path = require("path");
 const mongoose = require("mongoose");
 require("./src/db/conn");
 const staticPath = path.join(__dirname,"../public");
-
 app.use(express.static('public'))
-
-// app.use('/frontend_assets/lead_mgmt/css',express.static(__dirname +'public/frontend_assets/lead_mgmt/css'))
-// app.use('/frontend_assets/lead_mgmt/js',express.static(__dirname+'public/frontend_assets/lead_mgmt/js'))
-// app.use('/frontend_assets/lead_mgmt/images',express.static(__dirname+'public/frontend_assets/lead_mgmt/images'))
-
-// app.use('/backend_assets/lead_mgmt/css',express.static(__dirname+'public/backend_assets/lead_mgmt/css'))
-// app.use('/backend_assets/lead_mgmt/js',express.static(__dirname+'public/backend_assets/lead_mgmt/js'))
-// app.use('/backend_assets/lead_mgmt/plugins',express.static(__dirname+'public/backend_assets/lead_mgmt/plugins'))
-// app.use('/backend_assets/lead_mgmt/img',express.static(__dirname+'public/backend_assets/lead_mgmt/img'))
-// app.use('/backend_assets/lead_mgmt/fonts',express.static(__dirname+'public/backend_assets/lead_mgmt/fonts'))
-
-
 app.set('view engine', 'ejs')
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
-
 const dataRouter = require("./src/routers/data");
 const dataModels = require("./src/models/data");
 
+var cors = require('cors')
+app.use(cors())
+
+
+var corsOptions = {
+    origin: '*',
+}
 
 app.use(
   dataRouter
  );
 
+//  app.use(express.json());
+//  app.use(express.urlencoded({extended:false}));
 
-// app.get("/", async (req,res)=>{
-//   try {
-//       const users = await userModel.find();
-//       //res.status(200).send(users);
-//       res.status(200).render('frontend/lead_mgmt/index',{users:users})
-//          } catch (error) {
-//       res.status(400).send(error)
-//   }
-//   }); 
-
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json());
 
 app.get('/hello', (req, res) => {
     res.send("jhjk")
@@ -59,6 +48,7 @@ app.get("/", async (req,res)=>{
       res.status(400).send(error)
   }
 });
+
 
 
 app.listen(port, () => {
